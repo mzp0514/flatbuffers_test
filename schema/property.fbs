@@ -1,0 +1,9 @@
+
+table Property {
+  name:string;
+  value:string;
+  type:string;
+  sub_properties:[Property];
+}
+
+root_type Property;

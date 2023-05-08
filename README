@@ -1,0 +1,4 @@
+brew install flatbuffers
+
+flatc --cpp -o ./include/ ./schema/property.fbs
+flatc -b -o ./data/ --schema ./schema/property.fbs
