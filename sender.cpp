@@ -2,7 +2,6 @@
 #include "flatbuffers/reflection.h"
 #include "flatbuffers/util.h"
 #include <iostream>
-#include <format>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <arpa/inet.h>
@@ -11,6 +10,14 @@
 #include <unistd.h>
 #include <cstring>
 
+/**
+ * The example property tree:
+ *
+ *          root
+ *        /   |    \
+ *   child1 child2 child3
+ *
+ */
 void BuildProperty(flatbuffers::FlatBufferBuilder &builder)
 {
     std::vector<flatbuffers::Offset<Property>> sub_properties_vector;

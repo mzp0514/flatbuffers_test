@@ -1,7 +1,6 @@
 #include "flatbuffers/reflection.h"
 #include "flatbuffers/util.h"
 #include <iostream>
-#include <format>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <arpa/inet.h>
@@ -12,6 +11,9 @@
 
 void VisitTable(const flatbuffers::Table *table, const reflection::Schema *schema);
 
+/**
+ * Visits elements of flatbuffers::VectorOfAny using reflection. Only supports flatbuffers::Table elements currently.
+ */
 void VisitVec(const flatbuffers::VectorOfAny *vec, const reflection::Field *field, const reflection::Schema *schema)
 {
     std::cout << "[" << std::endl;
@@ -49,6 +51,9 @@ void VisitVec(const flatbuffers::VectorOfAny *vec, const reflection::Field *fiel
     std::cout << "]" << std::endl;
 }
 
+/**
+ * Visits flatbuffers::Table using reflection. Only supports reflection::String and reflection::Vector currently.
+ */
 void VisitTable(const flatbuffers::Table *table, const reflection::Schema *schema)
 {
     std::cout << "{" << std::endl;
@@ -84,7 +89,6 @@ void VisitTable(const flatbuffers::Table *table, const reflection::Schema *schem
 
 int main(int /*argc*/, const char * /*argv*/[])
 {
-
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd == -1)
     {
@@ -136,8 +140,8 @@ int main(int /*argc*/, const char * /*argv*/[])
 
     std::ifstream input("../data/property.bfbs", std::ios::binary);
     std::string bfbsfile(std::istreambuf_iterator<char>(input), {});
-    auto schema = reflection::GetSchema(bfbsfile.c_str());
 
+    auto schema = reflection::GetSchema(bfbsfile.c_str());
     auto root = flatbuffers::GetAnyRoot((uint8_t *)buffer);
 
     VisitTable(root, schema);

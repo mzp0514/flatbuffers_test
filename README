@@ -1,4 +1,39 @@
-brew install flatbuffers
+# Environment
+Operating System: MacOS 13.3.1
 
-flatc --cpp -o ./include/ ./schema/property.fbs
+Compiler: Apple clang version 14.0.3 (clang-1403.0.22.14.1)
+
+# Setup
+Install necessary tools:
+```
+brew install cmake
+brew install flatbuffers
+```
+
+Enter project root directory and execute:
+```
+flatc --cpp --gen-mutable -o ./include/ ./schema/property.fbs
 flatc -b -o ./data/ --schema ./schema/property.fbs
+
+mkdir build
+cd build
+cmake ..
+cmake --build .
+```
+
+Start receiver:
+```
+./receiver
+```
+
+Start sender:
+```
+./sender
+```
+
+# Solutions
+The solution to the first three tasks: `schema/property.fbs`, `sender.cpp`, `receiver.cpp`
+
+The solution to the last task:
+
+If the property tree is updated frequently by the sender, we can let the receiver poll on the TCP socket or use message queue to receive updates.
